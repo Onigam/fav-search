@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bookmark Search</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-4">
+  <h1 class="text-xl font-bold mb-2">Search Bookmarks</h1>
+  <div class="flex flex-col space-y-2">
+    <input type="text" id="search-query" placeholder="Search bookmarks..." class="p-2 border rounded">
+    <button id="search-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+    <ul id="results" class="divide-y divide-gray-200"></ul>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
+

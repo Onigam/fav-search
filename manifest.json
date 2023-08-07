@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "Bookmark Search",
+  "description": "Search your bookmarks and display the first three results",
+  "version": "1.0",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "bookmarks"
+  ]
+}
+
