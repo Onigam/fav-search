@@ -7,7 +7,7 @@ function performSearch() {
     resultsList.innerHTML = "";
 
     // Display the first three results
-    for (var i = 0; i < Math.min(3, results.length); i++) {
+    for (var i = 0; i < Math.min(6, results.length); i++) {
       var listItem = document.createElement("li");
       listItem.className = "py-2";
 
