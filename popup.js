@@ -8,21 +8,42 @@ function performSearch() {
 
     // Display the first three results
     for (var i = 0; i < Math.min(6, results.length); i++) {
-      var listItem = document.createElement("li");
-      listItem.className = "py-2";
+      (function () {
+        var listItem = document.createElement("li");
+        listItem.className = "py-2 flex justify-between items-center";
 
-      var link = document.createElement("a");
-      link.href = results[i].url;
-      link.textContent = results[i].title;
-      link.className = "text-blue-500 hover:underline";
-      link.target = "_blank";
-      listItem.appendChild(link);
-      resultsList.appendChild(listItem);
+        var link = document.createElement("a");
+        link.href = results[i].url;
+        link.textContent = results[i].title;
+        link.className = "text-blue-500 hover:underline";
+        link.target = "_blank";
+        listItem.appendChild(link);
 
-      // Set focus to the first result
-      if (i === 0) {
-        link.focus();
-      }
+        var currentResultId = results[i].id; // Capture the current ID
+
+        // Create a delete button
+        var deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "x";
+        deleteBtn.className =
+          "ml-1 bg-red-500 hover:bg-red-700 py-1 px-2 text-white rounded text-sm";
+
+        // Set the click event listener
+        deleteBtn.onclick = (function (bookmarkId) {
+          return function () {
+            alert("Bookmark deleted! " + bookmarkId);
+            chrome.bookmarks.remove(bookmarkId);
+            performSearch();
+          };
+        })(currentResultId);
+
+        listItem.appendChild(deleteBtn);
+
+        resultsList.appendChild(listItem);
+
+        if (i === 0) {
+          link.focus();
+        }
+      })(); // This IIFE is to ensure `i` is correctly scoped for asynchronous callbacks.
     }
   });
 }
