@@ -2,24 +2,29 @@
 function performSearch() {
   var query = document.getElementById("search-query").value;
   chrome.bookmarks.search(query, function (results) {
+    // Remove results without parentId
+    const filteredResults = results.filter((result) => {
+      return results.some((r) => r.id !== result.parentId);
+    });
+
     // Clear previous results
     var resultsList = document.getElementById("results");
     resultsList.innerHTML = "";
 
     // Display the first three results
-    for (var i = 0; i < Math.min(6, results.length); i++) {
+    for (var i = 0; i < Math.min(16, filteredResults.length); i++) {
       (function () {
         var listItem = document.createElement("li");
         listItem.className = "py-2 flex justify-between items-center";
 
         var link = document.createElement("a");
-        link.href = results[i].url;
-        link.textContent = results[i].title;
+        link.href = filteredResults[i].url;
+        link.textContent = filteredResults[i].title;
         link.className = "text-blue-500 hover:underline";
         link.target = "_blank";
         listItem.appendChild(link);
 
-        var currentResultId = results[i].id; // Capture the current ID
+        var currentResultId = filteredResults[i].id; // Capture the current ID
 
         // Create a delete button
         var deleteBtn = document.createElement("button");
